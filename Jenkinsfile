@@ -18,20 +18,17 @@ pipeline {
         stage('Install Python Dependencies') {
             steps {
                 // 1. Cria o ambiente virtual (venv)
-                // Vamos usar python3, pois o log de erro mencionou python3.12
                 sh 'python3 -m venv venv'
                 
-                // 2. Instala as dependências USANDO o pip de dentro do venv
-                // (O 'source' ativa o venv antes de rodar o pip)
-                sh 'source venv/bin/activate && pip install -r requirements.txt'
+                // 2. Ativa o venv (usando '.') e instala as libs NA MESMA LINHA
+                sh '. venv/bin/activate && pip install -r requirements.txt'
             }
         }
 
         stage('Run Appium Test') {
             steps {
-                // 3. Executa o script USANDO o python de dentro do venv
-                // (O 'source' ativa o venv para que o script encontre as bibliotecas)
-                sh 'source venv/bin/activate && python3 teste_calculadora.py'
+                // 3. Ativa o venv (usando '.') e roda o script NA MESMA LINHA
+                sh '. venv/bin/activate && python3 teste_calculadora.py'
             }
         }
     }
