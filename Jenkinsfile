@@ -16,18 +16,18 @@ pipeline {
         }
 
         stage('Install Python Dependencies') {
-            steps {
-                // Instala as bibliotecas listadas no requirements.txt
-                sh 'pip3 install -r requirements.txt'  // <-- MUDANÇA AQUI
-            }
-        }
+         steps {
+                // Instala as bibliotecas listadas no requirements.txt
+                sh 'pip3 install -r requirements.txt'  // <-- MUDANÇA AQUI
+             }
+         }
 
-        stage('Run Appium Test') {
-            steps {
-                // Executa seu script Python
-                sh 'python3 teste_calculadora.py' // <-- MUDANÇA AQUI
-            }
-        }
+         stage('Run Appium Test') {
+             steps {
+                 // Executa seu script Python
+                 sh 'python3 teste_calculadora.py' // <-- MUDANÇA AQUI
+             }
+         }
     }
 
     post {
