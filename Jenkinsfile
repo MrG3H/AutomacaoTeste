@@ -28,7 +28,7 @@ pipeline {
         stage('Run Appium Test') {
             steps {
                 // 3. Ativa o venv (usando '.') e roda o script NA MESMA LINHA
-                sh '. venv/bin/activate && python3 teste_calculadora.py'
+                sh '. venv/bin/activate && python3 automacaoteste.py'
             }
         }
     }
