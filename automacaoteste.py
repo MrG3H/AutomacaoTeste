@@ -8,14 +8,36 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 # --- 1. CONFIGURAÇÕES PRINCIPAIS (Lendo do Jenkins) ---
 
-# O Jenkins vai criar uma variável de ambiente chamada 'CRASHKEN_SECRET'
-# que contém o valor da sua credencial.
+# O Jenkins vai injetar a credencial 'CRASHKEN_API_KEY' na variável 'CRASHKEN_SECRET'
 API_KEY = os.environ.get("CRASHKEN_SECRET")
 
 # Se o segredo não for encontrado, o script para
 if not API_KEY:
-    print("Erro: A variável de ambiente 'CRASHKEN_SECRET' não foi definida!")
+    print("ERRO CRÍTICO: A variável de ambiente 'CRASHKEN_SECRET' não foi definida no Jenkins!")
     sys.exit(1)
+
+# [!!! VARIÁVEIS FALTANDO ESTAVAM AQUI !!!]
+# [VERIFIQUE ISSO] Base da URL da API
+CRASHKEN_BASE_URL = "https://vivo.crashken.com" 
+
+# [VERIFIQUE ISSO] URL do seu servidor Appium (onde o Jenkins irá se conectar)
+APPIUM_SERVER_URL = "http://127.0.0.1:4723" # Pode ser "https://vivo.crashken.com/wd/hub"
+
+# Informações do dispositivo
+DEVICE_ID = "6613f12555b9f5763b80fc21"
+DEVICE_SERIAL = "RXCTA04ANWB" 
+
+# Headers da API
+HEADERS = {
+    "Content-Type": "application/json"
+}
+
+# Endpoints da API
+ALLOC_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/alloc"
+
+# [!!! ATENÇÃO !!!] Você AINDA PRECISA encontrar este endpoint no Swagger
+# Procure por 'release', 'dealloc', etc.
+RELEASE_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/release" 
 
 
 # --- 2. INÍCIO DA EXECUÇÃO ---
@@ -82,7 +104,7 @@ try:
     
     time.sleep(1)
     
-    el_resultado = driver.find_element(by=AppiumBy.ID, value="com.google.android.calculator:id/result_final")
+    el_resultado = driver.find_element(by=AppiumBym.ID, value="com.google.android.calculator:id/result_final")
     
     assert el_resultado.text == "8"
     print("TESTE CONCLUÍDO COM SUCESSO!")
