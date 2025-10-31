@@ -16,11 +16,10 @@ if not API_KEY:
     print("ERRO CRÍTICO: A variável de ambiente 'CRASHKEN_SECRET' não foi definida no Jenkins!")
     sys.exit(1)
 
-# [!!! VARIÁVEIS FALTANDO ESTAVAM AQUI !!!]
-# [VERIFIQUE ISSO] Base da URL da API
-CRASHKEN_BASE_URL = "https://vivo.crashken.com" 
+ Base da URL da API
+CRASHKEN_BASE_URL = "https://hmlg.crashken.com/" 
 
-# [VERIFIQUE ISSO] URL do seu servidor Appium (onde o Jenkins irá se conectar)
+#URL do seu servidor Appium (onde o Jenkins irá se conectar)
 APPIUM_SERVER_URL = "http://127.0.0.1:4723" # Pode ser "https://vivo.crashken.com/wd/hub"
 
 # Informações do dispositivo
@@ -35,8 +34,7 @@ HEADERS = {
 # Endpoints da API
 ALLOC_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/alloc"
 
-# [!!! ATENÇÃO !!!] Você AINDA PRECISA encontrar este endpoint no Swagger
-# Procure por 'release', 'dealloc', etc.
+
 RELEASE_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/release" 
 
 
