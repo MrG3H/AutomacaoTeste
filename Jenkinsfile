@@ -33,8 +33,14 @@ pipeline {
                 . venv/bin/activate
                 
                 echo "Garantindo que o driver uiautomator2@2.43.1 está instalado..."
-                # PASSO 1: Instala o driver SÓ SE não estiver presente
-                appium driver list --installed | grep "uiautomator2@2.43.1" || appium driver install uiautomator2@2.43.1
+                
+                # PASSO 1: Lógica 'if' mais robusta para instalar o driver
+                if ! appium driver list --installed | grep -q "uiautomator2@2.43.1"; then
+                  echo "Driver não encontrado. Instalando..."
+                  appium driver install uiautomator2@2.43.1
+                else
+                  echo "Driver uiautomator2@2.43.1 já está instalado. Pulando."
+                fi
                 
                 echo "Iniciando servidor Appium em background..."
                 # PASSO 2: Inicia o Appium em background
