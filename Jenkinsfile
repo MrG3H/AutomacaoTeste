@@ -27,8 +27,35 @@ pipeline {
 
         stage('Run Appium Test') {
             steps {
-                // 3. Ativa o venv (usando '.') e roda o script NA MESMA LINHA
-                sh '. venv/bin/activate && python3 automacaoteste.py'
+                // Bloco 'sh' de várias linhas para controlar todo o processo
+                sh '''
+                # Ativa o ambiente virtual
+                . venv/bin/activate
+                
+                echo "Instalando o driver UiAutomator2 para o Appium..."
+                # PASSO 1: Instala o driver necessário
+                appium driver install uiautomator2
+                
+                echo "Iniciando servidor Appium em background (com base path /wd/hub)..."
+                # PASSO 2: Inicia o Appium com a flag de compatibilidade e em background (&)
+                appium --base-path /wd/hub &
+                APPIUM_PID=$!
+                
+                echo "Esperando 10 segundos para o servidor Appium iniciar..."
+                sleep 10
+                
+                echo "Executando o script de teste Python..."
+                # PASSO 3: Roda o script Python (que agora vai encontrar o servidor)
+                python3 automacaoteste.py
+                PY_EXIT_CODE=$?
+                
+                echo "Desligando o servidor Appium (PID: $APPIUM_PID)..."
+                # PASSO 4: Mata o processo do Appium para limpar o agente
+                kill $APPIUM_PID
+                
+                # PASSO 5: Sai com o código de erro do Python (se falhou, a pipeline falha)
+                exit $PY_EXIT_CODE
+                '''
             }
         }
     }
