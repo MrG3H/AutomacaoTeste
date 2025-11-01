@@ -36,9 +36,9 @@ pipeline {
                 # PASSO 1: Instala o driver (versão ESPECÍFICA E COMPATÍVEL)
                 appium driver install uiautomator2@2.43.1
                 
-                echo "Iniciando servidor Appium em background (com base path /wd/hub)..."
-                # PASSO 2: Inicia o Appium com a flag de compatibilidade e em background (&)
-                appium --base-path /wd/hub &
+                echo "Iniciando servidor Appium em background..."
+                # PASSO 2: Inicia o Appium em background (sem a flag --base-path)
+                appium &
                 APPIUM_PID=$!
                 
                 echo "Esperando 10 segundos para o servidor Appium iniciar..."
