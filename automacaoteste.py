@@ -16,11 +16,11 @@ if not API_KEY:
     print("ERRO CRÍTICO: A variável de ambiente 'CRASHKEN_SECRET' não foi definida no Jenkins!")
     sys.exit(1)
 
- Base da URL da API
+# Base da URL da API
 CRASHKEN_BASE_URL = "https://hmlg.crashken.com/" 
 
-#URL do seu servidor Appium (onde o Jenkins irá se conectar)
-APPIUM_SERVER_URL = "http://127.0.0.1:4723" # Pode ser "https://vivo.crashken.com/wd/hub"
+# URL do seu servidor Appium (onde o Jenkins irá se conectar)
+APPIUM_SERVER_URL = "http://localhost:4723/wd/hub" # Pode ser "https://vivo.crashken.com/wd/hub"
 
 # Informações do dispositivo
 DEVICE_ID = "6613f12555b9f5763b80fc21"
@@ -33,10 +33,7 @@ HEADERS = {
 
 # Endpoints da API
 ALLOC_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/alloc"
-
-
 RELEASE_URL = f"{CRASHKEN_BASE_URL}/services/device/ticket/release" 
-
 
 # --- 2. INÍCIO DA EXECUÇÃO ---
 
@@ -102,7 +99,8 @@ try:
     
     time.sleep(1)
     
-    el_resultado = driver.find_element(by=AppiumBym.ID, value="com.google.android.calculator:id/result_final")
+    # Erro de digitação corrigido aqui: Era AppiumBym, mudei para AppiumBy
+    el_resultado = driver.find_element(by=AppiumBy.ID, value="com.google.android.calculator:id/result_final")
     
     assert el_resultado.text == "8"
     print("TESTE CONCLUÍDO COM SUCESSO!")
