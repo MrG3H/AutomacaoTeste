@@ -33,8 +33,8 @@ pipeline {
                 . venv/bin/activate
                 
                 echo "Instalando o driver UiAutomator2 para o Appium..."
-                # PASSO 1: Instala o driver necessário
-                appium driver install uiautomator2
+                # PASSO 1: Instala o driver (versão ESPECÍFICA E COMPATÍVEL)
+                appium driver install uiautomator2@2.43.1
                 
                 echo "Iniciando servidor Appium em background (com base path /wd/hub)..."
                 # PASSO 2: Inicia o Appium com a flag de compatibilidade e em background (&)
