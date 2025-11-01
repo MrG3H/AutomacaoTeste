@@ -20,7 +20,7 @@ if not API_KEY:
 CRASHKEN_BASE_URL = "https://hmlg.crashken.com/" 
 
 # URL do seu servidor Appium (onde o Jenkins irá se conectar)
-APPIUM_SERVER_URL = "http://localhost:4723" # Pode ser "https://vivo.crashken.com/wd/hub"
+APPIUM_SERVER_URL = "http://hmlg.crashken.com/:4723" # Pode ser "https://vivo.crashken.com/wd/hub"
 
 # Informações do dispositivo
 DEVICE_ID = "6613f12555b9f5763b80fc21"
