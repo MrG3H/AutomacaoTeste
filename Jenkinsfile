@@ -32,12 +32,12 @@ pipeline {
                 # Ativa o ambiente virtual
                 . venv/bin/activate
                 
-                echo "Instalando o driver UiAutomator2 para o Appium..."
-                # PASSO 1: Instala o driver (versão ESPECÍFICA E COMPATÍVEL)
-                appium driver install uiautomator2@2.43.1
+                echo "Garantindo que o driver uiautomator2@2.43.1 está instalado..."
+                # PASSO 1: Instala o driver SÓ SE não estiver presente
+                appium driver list --installed | grep "uiautomator2@2.43.1" || appium driver install uiautomator2@2.43.1
                 
                 echo "Iniciando servidor Appium em background..."
-                # PASSO 2: Inicia o Appium em background (sem a flag --base-path)
+                # PASSO 2: Inicia o Appium em background
                 appium &
                 APPIUM_PID=$!
                 
